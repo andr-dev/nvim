@@ -1,6 +1,11 @@
 return {
     tools = {
-        -- autoSetHints = false,
+        autoSetHints = true,
+
+        runnables = {
+            use_telescope =true
+        },
+
         on_initialized = function()
             vim.api.nvim_create_autocmd({ "BufWritePost", "BufEnter", "CursorHold", "InsertLeave" }, {
                 pattern = { "*.rs" },
@@ -18,7 +23,7 @@ return {
             only_current_line = false,
 
             -- whether to show parameter hints with the inlay hints or not
-            show_parameter_hints = false,
+            show_parameter_hints = true,
 
             -- prefix for parameter hints
             parameter_hints_prefix = "",
@@ -42,6 +47,7 @@ return {
             -- The color of the hints
             highlight = "Comment",
         },
+        
         hover_actions = {
             auto_focus = false,
             border = {

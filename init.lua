@@ -7,7 +7,6 @@ require("user.plugins.impatient")
 
 require("user.plugins.alpha")
 -- require("user.plugins.autopairs")
--- require("user.plugins.bufferline")
 require("user.plugins.cmp")
 require("user.plugins.comment")
 require("user.plugins.gitsigns")
