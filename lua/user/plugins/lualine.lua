@@ -13,10 +13,7 @@ require('lualine').setup {
     theme = lualine_theme,
     component_separators = '|',
     section_separators = '',
-    disabled_filetypes = {
-      statusline = {},
-      winbar = {},
-    },
+    disabled_filetypes = { 'nerdtree' },
     disabled_buftypes = { 'quickfix', 'prompt' },
     ignore_focus = {},
     always_divide_middle = true,
@@ -41,12 +38,17 @@ require('lualine').setup {
     lualine_z = {'location'}
   },
   inactive_sections = {
-    lualine_a = {},
-    lualine_b = {},
+    lualine_a = {
+      {
+        'buffers',
+        buffers_color = lualine_buffers_theme,
+      }
+    },
+    lualine_b = {'branch', 'diff', 'diagnostics'},
     lualine_c = {'filename'},
-    lualine_x = {'location'},
+    lualine_x = {'encoding'},
     lualine_y = {},
-    lualine_z = {}
+    lualine_z = {'location'}
   },
   tabline = {},
   winbar = {},
