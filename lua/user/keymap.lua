@@ -45,4 +45,5 @@ set_keymap('n', 's', '<CMD>lua require("flash").jump()<CR>')
 -- Git
 set_keymap('n', '<leader>gwc', '<CMD>lua require("telescope").extensions.git_worktree.create_git_worktree()<CR>')
 set_keymap('n', '<leader>gws', '<CMD>lua require("telescope").extensions.git_worktree.git_worktrees()<CR>')
+set_keymap('n', '<leader>gg', '<CMD>lua require("neogit").open()<CR>')
 
