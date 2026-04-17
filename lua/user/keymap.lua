@@ -47,3 +47,5 @@ set_keymap('n', '<leader>gwc', '<CMD>lua require("telescope").extensions.git_wor
 set_keymap('n', '<leader>gws', '<CMD>lua require("telescope").extensions.git_worktree.git_worktrees()<CR>')
 set_keymap('n', '<leader>gg', '<CMD>lua require("neogit").open()<CR>')
 
+set_keymap('n', '<leader>ot', '<CMD>Octo pr search is:open author=andr-dev<CR>')
+

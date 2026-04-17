@@ -24,7 +24,6 @@ require('lazy').setup({
   'rcarriga/nvim-notify',
 
   -- LSP
-  {'VonHeikemen/lsp-zero.nvim', branch = 'v4.x'},
   {'neovim/nvim-lspconfig'},
   {'hrsh7th/cmp-nvim-lsp'},
   {'hrsh7th/nvim-cmp'},
@@ -44,4 +43,5 @@ require('user.plugins.telescope')
 require('user.plugins.lualine')
 require('user.plugins.lsp')
 require('user.plugins.neogit')
+require('user.plugins.octo')
 

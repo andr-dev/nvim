@@ -1,66 +1,78 @@
--- Reserve a space in the gutter
--- This will avoid an annoying layout shift in the screen
-vim.opt.signcolumn = 'yes'
-
--- Add cmp_nvim_lsp capabilities settings to lspconfig
--- This should be executed before you configure any language server
-local lspconfig_defaults = require('lspconfig').util.default_config
-lspconfig_defaults.capabilities = vim.tbl_deep_extend(
-  'force',
-  lspconfig_defaults.capabilities,
-  require('cmp_nvim_lsp').default_capabilities()
+-- Capabilities (shared across all servers)
+local capabilities = vim.tbl_deep_extend(
+  "force",
+  vim.lsp.protocol.make_client_capabilities(),
+  require("cmp_nvim_lsp").default_capabilities()
 )
 
--- This is where you enable features that only work
--- if there is a language server active in the file
-vim.api.nvim_create_autocmd('LspAttach', {
-  desc = 'LSP actions',
+-- LSP keymaps (global, applied on attach)
+vim.api.nvim_create_autocmd("LspAttach", {
+  desc = "LSP actions",
   callback = function(event)
-    local opts = {buffer = event.buf}
+    local opts = { buffer = event.buf }
+    local buf = vim.lsp.buf
 
-    vim.keymap.set('n', 'ls', '<CMD>Telescope diagnostics<CR>', opts)
-    vim.keymap.set('n', 'lf', '<CMD>lua vim.lsp.buf.format()<CR>', opts)
-    vim.keymap.set('n', 'lr', '<CMD>lua vim.lsp.buf.rename()<CR>', opts)
-    vim.keymap.set('n', 'la', '<CMD>lua vim.lsp.buf.code_action()<CR>', opts)
+    vim.keymap.set("n", "lf", function()
+      buf.format({ async = true })
+    end, opts)
 
-    vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
-    vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
-    vim.keymap.set('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>', opts)
-    vim.keymap.set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', opts)
-    vim.keymap.set('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
-    vim.keymap.set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
-    vim.keymap.set('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
+    vim.keymap.set("n", "K", buf.hover, opts)
+    vim.keymap.set("n", "ga", buf.code_action, opts)
+    vim.keymap.set("n", "gd", buf.definition, opts)
+    vim.keymap.set("n", "gD", buf.declaration, opts)
+    vim.keymap.set("n", "gi", buf.implementation, opts)
+    vim.keymap.set("n", "go", buf.type_definition, opts)
+    vim.keymap.set("n", "gr", buf.references, opts)
+    vim.keymap.set("n", "gR", buf.rename, opts)
+    vim.keymap.set("n", "gs", buf.signature_help, opts)
+
+    vim.keymap.set("n", "gS", "<cmd>Telescope diagnostics<CR>", opts)
   end,
 })
 
-require('lspconfig').lua_ls.setup({
-    settings = {
-        Lua = {
-            diagnostics = {
-                globals = { 'vim' }
-            }
-        }
-    }
+-- Server configs
+vim.lsp.config("lua_ls", {
+  capabilities = capabilities,
+  settings = {
+    Lua = {
+      diagnostics = {
+        globals = { "vim" },
+      },
+    },
+  },
 })
-require('lspconfig').rust_analyzer.setup({})
 
-local cmp = require('cmp')
+vim.lsp.config("rust_analyzer", {
+  capabilities = capabilities,
+})
+
+-- Enable all servers
+vim.lsp.enable({
+  "lua_ls",
+  "rust_analyzer",
+})
+
+-- nvim-cmp setup
+local cmp = require("cmp")
 
 cmp.setup({
   sources = {
-    {name = 'nvim_lsp'},
+    { name = "nvim_lsp" },
   },
   snippet = {
     expand = function(args)
-      -- You need Neovim v0.10 to use vim.snippet
       vim.snippet.expand(args.body)
     end,
   },
-  mapping = cmp.mapping.preset.insert({}),
+  mapping = cmp.mapping.preset.insert({
+    ["<C-d>"] = cmp.mapping.scroll_docs(-4),
+    ["<C-u>"] = cmp.mapping.scroll_docs(4),
+    ["<C-Space>"] = cmp.mapping.complete(),
+    ["<CR>"] = cmp.mapping.confirm({ select = true }),
+  }),
   sorting = {
     comparators = {
       cmp.config.compare.order,
     },
   },
 })
-

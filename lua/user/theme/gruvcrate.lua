@@ -332,7 +332,13 @@ function gruvcrate.load_plugins()
     markdownRule                  = {fg = gruvcrate.purple},
     markdownUrl                   = {fg = gruvcrate.blue, underline = true},
     markdownUrlDelimiter          = {fg = gruvcrate.yellow},
-    markdownUrlTitleDelimiter     = {fg = gruvcrate.green}
+    markdownUrlTitleDelimiter     = {fg = gruvcrate.green},
+
+    -- neogit
+    NeogitDiffAdd             = {fg = gruvcrate.green},
+    NeogitDiffDelete          = {fg = gruvcrate.red},
+    NeogitDiffAddHighlight    = {fg = gruvcrate.green},
+    NeogitDiffDeleteHighlight = {fg = gruvcrate.red}
   }
   return syntax
 end
