@@ -42,6 +42,6 @@ require('user.plugins.treesitter')
 require('user.plugins.telescope')
 require('user.plugins.lualine')
 require('user.plugins.lsp')
-require('user.plugins.neogit')
-require('user.plugins.octo')
+--require('user.plugins.neogit')
+--require('user.plugins.octo')
 

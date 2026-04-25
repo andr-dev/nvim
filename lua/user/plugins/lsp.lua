@@ -12,7 +12,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     local opts = { buffer = event.buf }
     local buf = vim.lsp.buf
 
-    vim.keymap.set("n", "lf", function()
+    vim.keymap.set("n", "gf", function()
       buf.format({ async = true })
     end, opts)
 
@@ -50,6 +50,13 @@ vim.lsp.config("rust_analyzer", {
 vim.lsp.enable({
   "lua_ls",
   "rust_analyzer",
+})
+
+vim.diagnostic.config({
+  virtual_text = true,
+  signs = true,
+  underline = true,
+  update_in_insert = false,
 })
 
 -- nvim-cmp setup

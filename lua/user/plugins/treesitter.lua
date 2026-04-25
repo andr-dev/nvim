@@ -1,6 +1,6 @@
-require("nvim-treesitter.configs").setup {
+require("nvim-treesitter").setup {
   -- A list of parser names, or "all" (the five listed parsers should always be installed)
-  ensure_installed = { "rust" },
+  ensure_installed = { "markdown", "markdown_inline", "rust" },
 
   -- Install parsers synchronously (only applied to `ensure_installed`)
   sync_install = false,
@@ -21,6 +21,8 @@ require("nvim-treesitter.configs").setup {
         local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
         if ok and stats and stats.size > max_filesize then
             return true
+        else
+            return false
         end
     end,
 
