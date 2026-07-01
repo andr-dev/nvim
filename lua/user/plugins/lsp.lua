@@ -46,10 +46,20 @@ vim.lsp.config("rust_analyzer", {
   capabilities = capabilities,
 })
 
+vim.lsp.config("biome", {
+  capabilities = capabilities,
+})
+
+vim.lsp.config("pyright", {
+  capabilities = capabilities,
+})
+
 -- Enable all servers
 vim.lsp.enable({
   "lua_ls",
   "rust_analyzer",
+  "biome",
+  "pyright",
 })
 
 vim.diagnostic.config({
