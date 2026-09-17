@@ -44,6 +44,15 @@ vim.lsp.config("lua_ls", {
 
 vim.lsp.config("rust_analyzer", {
   capabilities = capabilities,
+  settings = {
+    cargo = {
+      targetDir = true
+    }
+  },
+})
+
+vim.lsp.config("clangd", {
+  capabilities = capabilities,
 })
 
 vim.lsp.config("biome", {
@@ -56,10 +65,11 @@ vim.lsp.config("pyright", {
 
 -- Enable all servers
 vim.lsp.enable({
-  "lua_ls",
-  "rust_analyzer",
   "biome",
+  "clangd",
+  "lua_ls",
   "pyright",
+  "rust_analyzer",
 })
 
 vim.diagnostic.config({
